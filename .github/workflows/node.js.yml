@@ -9,7 +9,7 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
-   - cron: '0 20 * * *'
+   - cron: '30 * * * *'
 
 jobs:
   build:
@@ -35,12 +35,15 @@ jobs:
       run: |
         set -x
         assets=()
+        s=''
         for asset in ./*.zip; do
           assets+=("-a" "$asset")
+          h=${asset%.*}
+          s=${h##*.}
         done
         for asset in ./*.nsp; do
           assets+=("-a" "$asset")
         done
-        hub release create "${assets[@]}" -m "Release v1.01" "v1.01"
+        hub release create "${assets[@]}" -m "Tinfoil ${s}" "v${s}"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
