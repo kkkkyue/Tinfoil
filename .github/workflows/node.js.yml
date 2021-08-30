@@ -44,6 +44,6 @@ jobs:
         for asset in ./*.nsp; do
           assets+=("-a" "$asset")
         done
-        hub release create "${assets[@]}" -m "Tinfoil ${s}" "v${s}"
+        hub release create "${assets[@]}" -m "Tinfoil ${s}" "${s}"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
