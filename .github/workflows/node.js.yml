@@ -8,6 +8,8 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  schedule:
+   - cron: '0 20 * * *'
 
 jobs:
   build:
@@ -34,6 +36,9 @@ jobs:
         set -x
         assets=()
         for asset in ./*.zip; do
+          assets+=("-a" "$asset")
+        done
+        for asset in ./*.nsp; do
           assets+=("-a" "$asset")
         done
         hub release create "${assets[@]}" -m "Release v1.00" "v1.00"
