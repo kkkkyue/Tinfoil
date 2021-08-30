@@ -38,8 +38,8 @@ jobs:
         s=''
         for asset in ./*.zip; do
           assets+=("-a" "$asset")
-          h=${asset%.*}
-          s=${h##*.}
+          h=${asset%]*}
+          s=${h##*[}
         done
         for asset in ./*.nsp; do
           assets+=("-a" "$asset")
