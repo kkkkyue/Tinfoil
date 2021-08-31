@@ -41,8 +41,8 @@ jobs:
           assets+=("-a" "$asset")
           h1=${asset%]*}
           h2=${asset%%]*}
-          s1=${h1%[*}
-          s2=${h2%%[**}
+          s1=${h1%*[}
+          s2=${h2%%*[}
         done
         for asset in ./*.nsp; do
           assets+=("-a" "$asset")
