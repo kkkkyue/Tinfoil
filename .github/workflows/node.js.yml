@@ -35,15 +35,18 @@ jobs:
       run: |
         set -x
         assets=()
-        s=''
+        s1=''
+        s2=''
         for asset in ./*.zip; do
           assets+=("-a" "$asset")
-          h=${asset%]*}
-          s=${h##*[}
+          h1=${asset%]*}
+          h2=${asset%%]*}
+          s1=${h1##*[}
+          s2=${h2#*[}
         done
         for asset in ./*.nsp; do
           assets+=("-a" "$asset")
         done
-        hub release create "${assets[@]}" -m "Tinfoil ${s}" "${s}"
+        hub release create "${assets[@]}" -m "Tinfoil ${s2}.${s1}" "${s2}.${s1}"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
