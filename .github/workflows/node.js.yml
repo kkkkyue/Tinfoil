@@ -31,6 +31,14 @@ jobs:
     - run: npm install
     - run: node getTinfoil.js
     
+    - uses: actions/checkout@master
+    - name: Get Latest Release
+      id: latest_version
+      uses: abatilo/release-info-action@v1.3.0
+      with:
+        owner: kkkkyue
+        repo: Tinfoil
+    
     - name: Create Release
       run: |
         set -x
@@ -47,6 +55,7 @@ jobs:
         for asset in ./*.nsp; do
           assets+=("-a" "$asset")
         done
+        if [ ${{ steps.latest_version.outputs.latest_tag }} = "${s2}.${s1}" ]; then hub release delete "${s2}.${s1}"; fi
         hub release create "${assets[@]}" -m "Tinfoil ${s2}.${s1}" "${s2}.${s1}"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
