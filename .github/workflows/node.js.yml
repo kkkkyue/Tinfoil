@@ -55,7 +55,6 @@ jobs:
         for asset in ./*.nsp; do
           assets+=("-a" "$asset")
         done
-        if [ ${{ steps.latest_version.outputs.latest_tag }} = "${s2}.${s1}" ]; then hub release delete "${s2}.${s1}"; fi
-        hub release create "${assets[@]}" -m "Tinfoil ${s2}.${s1}" "${s2}.${s1}"
+        if [ "${{ steps.latest_version.outputs.latest_tag }}" != "${s2}.${s1}" ]; then hub release create "${assets[@]}" -m "Tinfoil ${s2}.${s1}" "${s2}.${s1}"; fi
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
